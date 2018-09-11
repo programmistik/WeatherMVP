@@ -168,7 +168,7 @@ namespace WeatherMVPapp.View
                 CityList.Add(item.ToString());
             }
             Export?.Invoke("CityList.json", CityList);
-            Export?.Invoke("LastCondition", FullWeatherList);
+            Export?.Invoke("LastCondition.json", FullWeatherList);
         }
         //--------------------------------------------------------------------------------------------------------
         private void getForecast(int days)
