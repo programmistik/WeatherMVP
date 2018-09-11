@@ -16,58 +16,27 @@ namespace WeatherMVPapp.Presenter
     public class WeatherPresenter
     {
         //--------------------------------------------------------------------------------------------------------
-        public MainForm View { get; set; }
+        IView View;
+        IModel Model;
+        
+
+        public WeatherPresenter(IModel Model, IView View)
+        {
+            this.Model = Model;
+            this.View = View;
+
+            //подписка на эвент 
+            View.AddCity += AddCity;
+            View.DelCity += DeleteCity;
+            View.Import += ImportCityList;
+            View.Export += ExportCityList;
+            View.getFull += getFullWeatherByCity;
+            View.DownloadIcon += DownloadIcon;
+        }
         public ICityDataStorage Storage { get; set; } = new CityMemoryDataStorage();
         public IFileSaver Saver { get; set; } = new JSON_Save();
-        //--------------------------------------------------------------------------------------------------------
-        private const string APPID = "babc914c7d24672584419e75857edcd7";
-        //--------------------------------------------------------------------------------------------------------
-        public void getWeather(string city)
-        {
-            using (WebClient web = new WebClient())
-            {
-                string url = $"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={APPID}&units=metric&cnt=1";
-                string json = "";
+        public WeatherAPI wAPI { get; set; } = new WeatherAPI();
 
-                try
-                {
-                    json = web.DownloadString(url);
-                }
-                catch(WebException ex)
-                {
-                    throw ex;                   
-                }
-
-                var result = JsonConvert.DeserializeObject<CurrentWeather>(json);
-                View.UpdateText(result);
-            }
-        }
-        //--------------------------------------------------------------------------------------------------------
-        public void getForcast(string city, int days)
-        {
-            string url = $"http://api.openweathermap.org/data/2.5/forecast?q={city}&units=metric&APPID={APPID}";
-            using (WebClient web = new WebClient())
-            {
-                var json = web.DownloadString(url);
-                var forcast = JsonConvert.DeserializeObject<weatherForcast>(json);
-
-                var tt = forcast.list.Where(d => d.dt_txt.Day == DateTime.Now.Day + days).ToList();
-
-                View.updateForecast(tt, DateTime.Now.AddDays(days));
-            }
-        }
-        //--------------------------------------------------------------------------------------------------------
-        public Image setIcon(string iconID)
-        {
-            string url = $"http://openweathermap.org/img/w/{iconID}.png"; 
-            var request = WebRequest.Create(url);
-            using (var response = request.GetResponse())
-            using (var weatherIcon = response.GetResponseStream())
-            {
-                var weatherImg = Image.FromStream(weatherIcon);
-                return weatherImg;
-            }
-        }
         //--------------------------------------------------------------------------------------------------------
         public void ImportCityList(string filename)
         {
@@ -75,7 +44,7 @@ namespace WeatherMVPapp.Presenter
             View.UpdateList(Storage.GetCityList());
         }
         //--------------------------------------------------------------------------------------------------------
-        public void ExportCityList(string filename) => Saver.Save(Storage.GetCityList(), filename);
+        public void ExportCityList(string filename, IEnumerable<object> list) => Saver.Save(Storage.GetCityList(), filename);
         //--------------------------------------------------------------------------------------------------------
         public void AddCity(string city)
         {
@@ -89,5 +58,30 @@ namespace WeatherMVPapp.Presenter
             View.UpdateList(Storage.GetCityList());
         }
         //--------------------------------------------------------------------------------------------------------
+        public void getFullWeatherByCity(string city)
+        {
+            CurrentWeather CurrWeather;
+            try
+            {
+                CurrWeather = wAPI.getWeather(city);
+            }
+            catch (WebException exc)
+            {
+                throw exc;
+            }
+            var Forcast = wAPI.getForcast(city);
+
+            View.AddWeatherToList(new FullWeather
+            {
+                City = Forcast.city.name,
+                CurrWeather = CurrWeather,
+                Forcast = Forcast
+            });
+        }
+        //--------------------------------------------------------------------------------------------------------
+        public void DownloadIcon(string iconID)
+        {
+            wAPI.DownloadIcon(iconID);
+        }
     }
 }

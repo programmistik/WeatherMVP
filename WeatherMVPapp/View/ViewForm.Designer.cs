@@ -1,6 +1,6 @@
 ﻿namespace WeatherMVPapp.View
 {
-    partial class MainForm
+    partial class ViewForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listBox_City = new System.Windows.Forms.ListBox();
@@ -39,6 +39,7 @@
             this.labelCity = new System.Windows.Forms.Label();
             this.textBoxCity = new System.Windows.Forms.TextBox();
             this.button_AddCity = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.Temp_Main = new System.Windows.Forms.Label();
@@ -76,14 +77,17 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.lbl_day_3 = new System.Windows.Forms.Label();
             this.lbl_day_2 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.buttonDelete = new System.Windows.Forms.Button();
+            this.description = new System.Windows.Forms.Label();
+            this.sunrise = new System.Windows.Forms.Label();
+            this.sunset = new System.Windows.Forms.Label();
+            this.wind = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -160,7 +164,6 @@
             this.listBox_City.Size = new System.Drawing.Size(258, 354);
             this.listBox_City.TabIndex = 0;
             this.listBox_City.SelectedIndexChanged += new System.EventHandler(this.listBox_City_SelectedIndexChanged);
-            this.listBox_City.DoubleClick += new System.EventHandler(this.listBox_City_DoubleClick);
             // 
             // tableLayoutPanel2
             // 
@@ -213,6 +216,18 @@
             this.button_AddCity.UseVisualStyleBackColor = true;
             this.button_AddCity.Click += new System.EventHandler(this.button_AddCity_Click);
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonDelete.Location = new System.Drawing.Point(91, 403);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(81, 44);
+            this.buttonDelete.TabIndex = 1;
+            this.buttonDelete.Text = "Delete city";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -226,6 +241,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.wind);
+            this.tabPage1.Controls.Add(this.sunset);
+            this.tabPage1.Controls.Add(this.sunrise);
+            this.tabPage1.Controls.Add(this.description);
             this.tabPage1.Controls.Add(this.Temp_Main);
             this.tabPage1.Controls.Add(this.picture_Main);
             this.tabPage1.Controls.Add(this.countryName);
@@ -246,8 +265,9 @@
             this.Temp_Main.ForeColor = System.Drawing.Color.Navy;
             this.Temp_Main.Location = new System.Drawing.Point(147, 83);
             this.Temp_Main.Name = "Temp_Main";
-            this.Temp_Main.Size = new System.Drawing.Size(0, 85);
+            this.Temp_Main.Size = new System.Drawing.Size(206, 85);
             this.Temp_Main.TabIndex = 7;
+            this.Temp_Main.Text = "temp";
             // 
             // picture_Main
             // 
@@ -267,8 +287,9 @@
             this.countryName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.countryName.Location = new System.Drawing.Point(6, 49);
             this.countryName.Name = "countryName";
-            this.countryName.Size = new System.Drawing.Size(0, 31);
+            this.countryName.Size = new System.Drawing.Size(111, 31);
             this.countryName.TabIndex = 5;
+            this.countryName.Text = "country";
             // 
             // cityName
             // 
@@ -278,8 +299,9 @@
             this.cityName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.cityName.Location = new System.Drawing.Point(3, 3);
             this.cityName.Name = "cityName";
-            this.cityName.Size = new System.Drawing.Size(0, 46);
+            this.cityName.Size = new System.Drawing.Size(85, 46);
             this.cityName.TabIndex = 4;
+            this.cityName.Text = "city";
             // 
             // tabPage2
             // 
@@ -737,18 +759,17 @@
             this.tableLayoutPanel15.Size = new System.Drawing.Size(518, 85);
             this.tableLayoutPanel15.TabIndex = 36;
             // 
-            // linkLabel1
+            // linkLabel2
             // 
-            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(3, 39);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(253, 13);
-            this.linkLabel1.TabIndex = 0;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "linkLabel1";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.linkLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(3, 62);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(253, 13);
+            this.linkLabel2.TabIndex = 1;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "linkLabel2";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
             // linkLabel4
             // 
@@ -775,17 +796,28 @@
             this.linkLabel3.Text = "linkLabel3";
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
             // 
-            // linkLabel2
+            // label9
             // 
-            this.linkLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(3, 62);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(253, 13);
-            this.linkLabel2.TabIndex = 1;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "linkLabel2";
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label9.Location = new System.Drawing.Point(3, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(49, 17);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Days:";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(3, 39);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(253, 13);
+            this.linkLabel1.TabIndex = 0;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "linkLabel1";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // lbl_day_3
             // 
@@ -811,29 +843,51 @@
             this.lbl_day_2.TabIndex = 18;
             this.lbl_day_2.Text = "DAYS";
             // 
-            // label9
+            // description
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(3, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(49, 17);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Days:";
+            this.description.AutoSize = true;
+            this.description.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.description.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.description.Location = new System.Drawing.Point(134, 50);
+            this.description.Name = "description";
+            this.description.Size = new System.Drawing.Size(76, 31);
+            this.description.TabIndex = 8;
+            this.description.Text = "desc";
             // 
-            // buttonDelete
+            // sunrise
             // 
-            this.buttonDelete.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonDelete.Location = new System.Drawing.Point(91, 403);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(81, 44);
-            this.buttonDelete.TabIndex = 1;
-            this.buttonDelete.Text = "Delete city";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            this.sunrise.AutoSize = true;
+            this.sunrise.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.sunrise.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.sunrise.Location = new System.Drawing.Point(32, 217);
+            this.sunrise.Name = "sunrise";
+            this.sunrise.Size = new System.Drawing.Size(75, 25);
+            this.sunrise.TabIndex = 9;
+            this.sunrise.Text = "sunrise";
             // 
-            // MainForm
+            // sunset
+            // 
+            this.sunset.AutoSize = true;
+            this.sunset.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.sunset.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.sunset.Location = new System.Drawing.Point(32, 242);
+            this.sunset.Name = "sunset";
+            this.sunset.Size = new System.Drawing.Size(70, 25);
+            this.sunset.TabIndex = 10;
+            this.sunset.Text = "sunset";
+            // 
+            // wind
+            // 
+            this.wind.AutoSize = true;
+            this.wind.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.wind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.wind.Location = new System.Drawing.Point(32, 308);
+            this.wind.Name = "wind";
+            this.wind.Size = new System.Drawing.Size(52, 25);
+            this.wind.TabIndex = 11;
+            this.wind.Text = "wind";
+            // 
+            // ViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -841,9 +895,10 @@
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(816, 489);
-            this.Name = "MainForm";
+            this.Name = "ViewForm";
             this.Text = "WeatherApp";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.ViewForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -944,6 +999,10 @@
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.Label wind;
+        private System.Windows.Forms.Label sunset;
+        private System.Windows.Forms.Label sunrise;
+        private System.Windows.Forms.Label description;
     }
 }
 

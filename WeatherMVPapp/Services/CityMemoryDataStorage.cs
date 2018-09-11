@@ -9,21 +9,29 @@ namespace WeatherMVPapp.Services
     public class CityMemoryDataStorage : ICityDataStorage
     {
         //--------------------------------------------------------------------------------------------------------
-        public List<string> CityList { get; set; } = new List<string>();
+        public IEnumerable<string> CityList { get; set; } = new List<string>();
         //--------------------------------------------------------------------------------------------------------
-        public List<string> GetCityList() => CityList;
+        public IEnumerable<string> GetCityList() => CityList;
         //--------------------------------------------------------------------------------------------------------
-        public void SetCityList(List<string> citylist) => CityList = new List<string>(citylist);
+        public void SetCityList(IEnumerable<string> citylist) => CityList = new List<string>(citylist);
         //--------------------------------------------------------------------------------------------------------
         public void Add(string city)
         {
             if (!String.IsNullOrWhiteSpace(city))
-            {
-                CityList.Add(city);
-            }
+                if (!CityList.Contains(city))
+                {
+                    var cl = CityList.ToList();
+                    cl.Add(city);
+                    CityList = cl;
+                }
         }
         //--------------------------------------------------------------------------------------------------------
-        public void Remove(string city)=> CityList.Remove(city);
+        public void Remove(string city)
+        {
+            var cl = CityList.ToList();
+            cl.Remove(city);
+            CityList = cl;
+        }
         //--------------------------------------------------------------------------------------------------------
     }
 }

@@ -10,7 +10,7 @@ namespace WeatherMVPapp.Services
     {
         void Add(string city);
         void Remove(string city);
-        List<string> GetCityList();
-        void SetCityList(List<string> CityList);
+        IEnumerable<string> GetCityList();
+        void SetCityList(IEnumerable<string> CityList);
     }
 }

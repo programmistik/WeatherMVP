@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\Weather.cs" />
     <Compile Include="Model\WeatherForecast.cs" />
     <Compile Include="Presenter\WeatherPresenter.cs" />
@@ -54,11 +55,13 @@
     <Compile Include="Services\ICityDataStorage.cs" />
     <Compile Include="Services\IFileSaver.cs" />
     <Compile Include="Services\JSON_Save.cs" />
-    <Compile Include="View\MainForm.cs">
+    <Compile Include="Services\WeatherAPI.cs" />
+    <Compile Include="View\IView.cs" />
+    <Compile Include="View\ViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="View\ViewForm.Designer.cs">
+      <DependentUpon>ViewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,8 +74,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="View\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="View\ViewForm.resx">
+      <DependentUpon>ViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

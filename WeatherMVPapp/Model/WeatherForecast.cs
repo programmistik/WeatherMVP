@@ -22,14 +22,15 @@ namespace WeatherMVPapp.Model
     //--------------------------------------------------------------------------------------------------------
     public class main
     {
-        public double temp { get; set; }
-        public double pressure { get; set; }
-        public double humidity { get; set; }
+        public double temp { get; set; } // Temperature. Unit Default: Kelvin, Metric: Celsius, Imperial: Fahrenheit.
+        public double pressure { get; set; } // Atmospheric pressure (on the sea level, if there is no sea_level or grnd_level data), hPa
+        public double humidity { get; set; } //  Humidity, %
     }
     //--------------------------------------------------------------------------------------------------------
     public class wind
     {
-        public double speed { get; set; }
+        public double speed { get; set; } // Wind speed. Unit Default: meter/sec, Metric: meter/sec, Imperial: miles/hour.
+        public double deg { get; set; } // Wind direction, degrees (meteorological)
     }
     //--------------------------------------------------------------------------------------------------------
     public class city
