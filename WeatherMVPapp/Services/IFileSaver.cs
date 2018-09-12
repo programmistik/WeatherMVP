@@ -10,6 +10,6 @@ namespace WeatherMVPapp.Services
     public interface IFileSaver
     {
         void Save(IEnumerable<object> CityList, string filename);
-        IEnumerable<string> Load(string filename);
+        IEnumerable<object> Load(string filename);
     }
 }

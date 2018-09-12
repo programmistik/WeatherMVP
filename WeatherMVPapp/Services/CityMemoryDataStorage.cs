@@ -9,11 +9,11 @@ namespace WeatherMVPapp.Services
     public class CityMemoryDataStorage : ICityDataStorage
     {
         //--------------------------------------------------------------------------------------------------------
-        public IEnumerable<string> CityList { get; set; } = new List<string>();
+        public IEnumerable<object> CityList { get; set; } = new List<string>();
         //--------------------------------------------------------------------------------------------------------
-        public IEnumerable<string> GetCityList() => CityList;
+        public IEnumerable<object> GetCityList() => CityList;
         //--------------------------------------------------------------------------------------------------------
-        public void SetCityList(IEnumerable<string> citylist) => CityList = new List<string>(citylist);
+        public void SetCityList(IEnumerable<object> citylist) => CityList = new List<object>(citylist);
         //--------------------------------------------------------------------------------------------------------
         public void Add(string city)
         {

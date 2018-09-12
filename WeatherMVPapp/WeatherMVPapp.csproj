@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\IModel.cs" />
+    <Compile Include="Model\InternetConnection.cs" />
     <Compile Include="Model\Weather.cs" />
     <Compile Include="Model\WeatherForecast.cs" />
     <Compile Include="Presenter\WeatherPresenter.cs" />

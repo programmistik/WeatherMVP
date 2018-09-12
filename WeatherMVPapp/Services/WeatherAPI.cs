@@ -32,9 +32,7 @@ namespace WeatherMVPapp.Services
                     throw ex;
                 }
 
-              //  var result = JsonConvert.DeserializeObject<CurrentWeather>(json);
                 return JsonConvert.DeserializeObject<CurrentWeather>(json);
-                //   View.UpdateText(result);
             }
         }
         //--------------------------------------------------------------------------------------------------------
@@ -44,11 +42,7 @@ namespace WeatherMVPapp.Services
             using (WebClient web = new WebClient())
             {
                 var json = web.DownloadString(url);
-               // var forcast = JsonConvert.DeserializeObject<weatherForcast>(json);
                 return JsonConvert.DeserializeObject<weatherForcast>(json);
-               // var tt = forcast.list.Where(d => d.dt_txt.Day == DateTime.Now.Day + days).ToList();
-
-              //  View.updateForecast(tt, DateTime.Now.AddDays(days));
             }
         }
         //--------------------------------------------------------------------------------------------------------

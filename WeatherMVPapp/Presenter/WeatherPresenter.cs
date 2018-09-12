@@ -25,7 +25,6 @@ namespace WeatherMVPapp.Presenter
             this.Model = Model;
             this.View = View;
 
-            //подписка на эвент 
             View.AddCity += AddCity;
             View.DelCity += DeleteCity;
             View.Import += ImportCityList;
@@ -44,7 +43,7 @@ namespace WeatherMVPapp.Presenter
             View.UpdateList(Storage.GetCityList());
         }
         //--------------------------------------------------------------------------------------------------------
-        public void ExportCityList(string filename, IEnumerable<object> list) => Saver.Save(Storage.GetCityList(), filename);
+        public void ExportCityList(string filename, IEnumerable<object> list) => Saver.Save(list,filename);// Storage.GetCityList(), filename);
         //--------------------------------------------------------------------------------------------------------
         public void AddCity(string city)
         {

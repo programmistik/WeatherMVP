@@ -9,7 +9,7 @@ namespace WeatherMVPapp.View
 {
     public interface IView
     {
-        void UpdateList(IEnumerable<string> CityList);
+        void UpdateList(IEnumerable<object> CityList);
         void AddWeatherToList(FullWeather full_weather);
         void UpdateText(CurrentWeather outPut);
         void updateForecast(List<ForecastList> l, DateTime onDate);

@@ -100,19 +100,28 @@ namespace WeatherMVPapp.View
             linkLabel4.Text = DateTime.Now.AddDays(4).ToShortDateString();
         }
         //--------------------------------------------------------------------------------------------------------
-        public void UpdateList(IEnumerable<string> CityList)
+        public void UpdateList(IEnumerable<object> CityList)
         {
-            listBox_City.DataSource = null;
-            var cl = CityList.ToList();
-            cl.Sort();
-            listBox_City.DataSource = cl;
+            if (CityList.Count() > 0 && CityList.ToList()[0] is string)
+            {
+                listBox_City.DataSource = null;
+                var cl = CityList.ToList();
+                cl.Sort();
+                listBox_City.DataSource = cl;
+            }
+            else
+            {
+                foreach (var item in CityList)
+                {
+                    var obj = JsonConvert.DeserializeObject<FullWeather>(item.ToString());
+                    FullWeatherList.Add(obj);
+                }
+            }
         }
         //--------------------------------------------------------------------------------------------------------
         public void AddWeatherToList(FullWeather full_weather)
         {
             if (FullWeatherList.Where(c => c.City == full_weather.City).Count() == 0)
-            //    MessageBox.Show($"{full_weather.City} is already exist.", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //else
                 FullWeatherList.Add(full_weather);
 
             textBoxCity.Text = full_weather.City;
@@ -202,7 +211,6 @@ namespace WeatherMVPapp.View
                     }
                     else
                     {
-                        
                         listBox_City.SelectedIndex = 0;
                     }
 
@@ -251,16 +259,38 @@ namespace WeatherMVPapp.View
         //--------------------------------------------------------------------------------------------------------
         private void ViewForm_Load(object sender, EventArgs e)
         {
-            emptyAll();
-
-            Import?.Invoke("CityList.json");
-            string city;
-
-            foreach (var item in listBox_City.Items)
+            if (InternetConnection.MyConnection.getConnectionStatus())
             {
-                city = item.ToString();
-                getFull?.Invoke(city);
+                emptyAll();
+
+                Import?.Invoke("CityList.json");
+                string city;
+
+                foreach (var item in listBox_City.Items)
+                {
+                    city = item.ToString();
+                    getFull?.Invoke(city);
+                }
+
+                if (FullWeatherList.Count > 0)
+                {
+                    UpdateText(FullWeatherList[0].CurrWeather);
+                    var tt = FullWeatherList[0].Forcast.list.Where(d => d.dt_txt.Day == DateTime.Now.Day + 1).ToList();
+                    updateForecast(tt, DateTime.Now.AddDays(1));
+                }
+                textBoxCity.Text = "";
             }
+            else
+            {
+                Load_NoConnection();
+            }
+        }
+        //--------------------------------------------------------------------------------------------------------
+        void Load_NoConnection()
+        {
+            emptyAll();
+            Import?.Invoke("CityList.json");
+            Import?.Invoke("LastCondition.json");
 
             if (FullWeatherList.Count > 0)
             {
@@ -269,6 +299,8 @@ namespace WeatherMVPapp.View
                 updateForecast(tt, DateTime.Now.AddDays(1));
             }
             textBoxCity.Text = "";
+            button_AddCity.Enabled = false;
+            buttonDelete.Enabled = false;
         }
         //--------------------------------------------------------------------------------------------------------
         DateTime getDate(double millisecound)
@@ -290,6 +322,6 @@ namespace WeatherMVPapp.View
             return Compass[(int)Math.Round((deg % 3600) / 225)];
         }
         //--------------------------------------------------------------------------------------------------------
-
+        
     }
 }

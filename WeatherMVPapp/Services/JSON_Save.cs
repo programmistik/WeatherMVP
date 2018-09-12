@@ -12,26 +12,14 @@ namespace WeatherMVPapp.Services
     class JSON_Save : IFileSaver
     {
         //--------------------------------------------------------------------------------------------------------
-        public IEnumerable<string> Load(string filename)
+        public IEnumerable<object> Load(string filename)
         {
-            //List<string> list;
-
-            //if (File.Exists(filename))
-            //{
-            //    var json = File.ReadAllText(filename);
-            //    list = JsonConvert.DeserializeObject<List<string>>(json);
-            //}
-            //else
-            //{
-            //    list = new List<string>();
-            //}
-            //return list;
-            IEnumerable<string> list;
+            IEnumerable<object> list;
 
             if (File.Exists(filename))
             {
                 var json = File.ReadAllText(filename);
-                list = JsonConvert.DeserializeObject<IEnumerable<string>>(json);
+                list = JsonConvert.DeserializeObject<IEnumerable<object>>(json);
             }
             else
             {
